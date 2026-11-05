@@ -1,6 +1,6 @@
 # Fresh eyes or many passes? Measuring AI reviewers on seeded errors
 
-Status: the one pre-registered test comparison has been run. It did not support the claim that Haiku 5.5 introduces more new errors than Opus 5.5. The difference was -0.017 new errors per document (Haiku minus Opus; 95% paired bootstrap CI -0.250 to +0.200; 60 documents). That is not evidence the models are equal: each model's new errors came from a single document, so the interval is wide.
+Status: the one pre-specified test comparison has been run. It did not support the claim that Haiku 5.5 introduces more new errors than Opus 5.5. The difference was -0.017 new errors per document (Haiku minus Opus; 95% paired bootstrap CI -0.250 to +0.200; 60 documents). That is not evidence the models are equal: each model's new errors came from a single document, so the interval is wide.
 
 ## Test result
 
@@ -40,9 +40,9 @@ Scoring the test run:
 python score.py --results results/final.jsonl --split test --strong opus-cli --weak haiku-cli
 ```
 
-`score.py` prints Opus minus Haiku, so the sign above is flipped to match the pre-registered measure.
+`score.py` prints Opus minus Haiku, so the sign above is flipped to match the pre-specified measure.
 
-Code was written with Claude. Hypotheses come from the author's experience. Data is fully synthetic.
+Claude wrote the code and ran the tests under the author's direction. The question and predictions come from the author's experience. Data is fully synthetic.
 
 ## Question
 
@@ -69,6 +69,8 @@ This question came from the dev data, so it is tested on data not used to form i
 - **Primary measure:** new errors per document, Haiku minus Opus, 95% paired bootstrap interval over documents. It is supported only if the interval excludes zero and Haiku is higher. If the interval includes zero, it is not supported. If Opus is significantly higher, the result favors hypothesis 2.
 - **Secondary, descriptive only:** recall, false alarms, wrong fixes, tokens and failed calls.
 - **Frozen files (first 16 hex digits of SHA-256):** `data/docs.jsonl` c19cc97aae903c08, `data/truth.jsonl` 61ea163a734f55ae, `generate.py` a0a1211c50742b28, `reviewers.py` 5da62e72d5dc766b, `score.py` e3c1fbc4129fb132, `run.py` de74c7e700c08cfa.
+
+The question, data and hashes above were written here before the test run, in a local working copy. This repository was published after the run, so its history cannot independently prove that timing.
 
 Prompts, data and scoring do not change after this point. Any later analysis gets labeled as exploratory. Calls that fail are retried only for operational errors, and refusals stay as outcomes.
 
